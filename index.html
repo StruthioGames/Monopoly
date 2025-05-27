@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css">
+  <title>Monopoly Board</title>
+  <script defer src="board.js"></script>
+</head>
+<body>
+    <div id="board"></div>
+    <div id="dice">
+        <div style="display: flex; gap: .5rem;">
+            <div class="die" id="die1">-</div>
+            <div class="die" id="die2">-</div>
+        </div>
+        <button id="ActivePlayer">Player 1</button>
+    </div>
+
+    <script>
+        function rollDice() {
+            const d1 = Math.floor(Math.random() * 6) + 1;
+            const d2 = Math.floor(Math.random() * 6) + 1;
+            document.getElementById('die1').textContent = d1;
+            document.getElementById('die2').textContent = d2;
+        };
+
+        document.querySelector('#dice button').addEventListener('click', rollDice);
+        const playerBtn = document.getElementById('ActivePlayer');
+        playerBtn.addEventListener('click', () => {
+            // extract the number from "Player X"
+            const current = parseInt(playerBtn.textContent.replace(/\D/g,''), 10);
+            // 1→2→3→4→1…
+            const next    = current % 4 + 1;
+            playerBtn.textContent = `Player ${next}`;
+        });
+    </script>
+</body>
+</html>
